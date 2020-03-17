@@ -45,6 +45,9 @@
 "replies": 99,
 "id": 641467
 }*/
+import 'Member.dart';
+import 'Node.dart';
+
 class Topic {
   final Node node;
   final Member member;
@@ -75,8 +78,6 @@ class Topic {
 
   String fromNowTerm() {
     int now = DateTime.now().millisecondsSinceEpoch ~/1000;
-    print("now:$now");
-    print("lastModified:$lastModified");
     int seconds = now - lastModified;
     int day = seconds ~/ (3600 * 24);
     int hour = seconds % (3600 * 24) ~/ 3600;
@@ -99,78 +100,5 @@ class Topic {
         contentRendered = json['content_rendered'],
         lastModified = json['last_modified'],
         replies = json['replies'],
-        id = json['id'];
-}
-
-class Node {
-  final String avatarLarge,
-      name,
-      avatarNormal,
-      title,
-      url,
-      footer,
-      header,
-      titleAlternative,
-      avatarMini,
-      parentNodeName;
-  final int topics, stars, id;
-  final bool root;
-
-  Node(
-      this.avatarLarge,
-      this.name,
-      this.avatarNormal,
-      this.title,
-      this.url,
-      this.footer,
-      this.header,
-      this.titleAlternative,
-      this.avatarMini,
-      this.parentNodeName,
-      this.topics,
-      this.stars,
-      this.id,
-      this.root);
-
-  Node.fromJson(Map<String, dynamic> json)
-      : avatarLarge = json['avatar_large'],
-        name = json['name'],
-        avatarNormal = json['avatar_normal'],
-        title = json['title'],
-        url = json['url'],
-        footer = json['footer'],
-        header = json['header'],
-        titleAlternative = json['avatar_large'],
-        avatarMini = json['avatar_large'],
-        parentNodeName = json['parent_node_name'],
-        topics = json['topics'],
-        stars = json['stars'],
-        id = json['id'],
-        root = json['root'];
-}
-
-class Member {
-  final String username,
-      website,
-      github,
-      psn,
-      url,
-      avatarNormal,
-      avatarLarge,
-      avatarMini;
-  final int id;
-
-  Member(this.username, this.website, this.github, this.psn, this.url,
-      this.avatarMini, this.avatarNormal, this.avatarLarge, this.id);
-
-  Member.fromJson(Map<String, dynamic> json)
-      : username = json['username'],
-        website = json['website'],
-        github = json['github'],
-        psn = json['psn'],
-        url = json['url'],
-        avatarMini = json['avatar_mini'],
-        avatarNormal = json['avatar_normal'],
-        avatarLarge = json['avatar_large'],
         id = json['id'];
 }

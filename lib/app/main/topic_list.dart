@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:v2exreader/main.dart';
+import 'package:v2exreader/app/main/MainViewModel.dart';
+import 'package:v2exreader/app/main/main.dart';
 
-import 'model/topic.dart';
-import 'network/http_util.dart';
-import 'transparent_image.dart';
-import 'utils/logUtil.dart';
+import '../../data/model/Topic.dart';
+import '../../transparent_image.dart';
+import '../../utils/logUtil.dart';
 
 //话题列表
 class TopicList extends StatefulWidget {
@@ -17,23 +17,20 @@ class TopicList extends StatefulWidget {
 }
 
 class _TopicListState extends State<TopicList> {
+
+  MainViewModel _mainViewModel = MainViewModel.getInstance();
+
   //话题列表
-  List<Topic> _topics = [];
+  List<Topic> _topics;
 
   //刷新话题列表
   _refreshTopic() async {
-    _topics.clear();
-    List<Topic> refreshData;
     if (widget.contentType == HOT_TOPIC) {
-      refreshData = await HttpUtil.loadHotTopic();
-    } else if (widget.contentType == LATEST_TOPIC) {
-      refreshData = await HttpUtil.loadLatestTopic();
+      await _mainViewModel.refreshHotTopics();
     } else {
-      refreshData = await HttpUtil.loadHotTopic();
+      await _mainViewModel.refreshLatestTopics();
     }
-    setState(() {
-      _topics.addAll(refreshData);
-    });
+    setState(() {});
   }
 
   //文本间分割符
@@ -90,13 +87,16 @@ class _TopicListState extends State<TopicList> {
                 ),
               ),
               _divider,
-              Padding(
-                padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
-                child: Text(
-                  topic.fromNowTerm(),
-                  style: TextStyle(color: Colors.black54),
+              Flexible(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
+                  child: Text(
+                    topic.fromNowTerm(),
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color: Colors.black54),
+                  ),
                 ),
-              )
+              ),
             ],
           ),
           SizedBox(height: 8),
@@ -121,11 +121,16 @@ class _TopicListState extends State<TopicList> {
       ),
     );
   }
-  
+
   @override
   void initState() {
     super.initState();
     Logs.d(message: "initState-${widget.contentType}");
+    if (widget.contentType == HOT_TOPIC) {
+      _topics = _mainViewModel.hotTopics;
+    } else {
+      _topics = _mainViewModel.latestTopics;
+    }
     _refreshTopic();
   }
 
