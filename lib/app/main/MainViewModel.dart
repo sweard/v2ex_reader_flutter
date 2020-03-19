@@ -7,14 +7,13 @@ import 'package:v2exreader/network/http_util.dart';
 import 'package:v2exreader/utils/logUtil.dart';
 
 class MainViewModel with ChangeNotifier {
-
   MainViewModel() {
     loadAll();
   }
 
   int currentPageIndex = 0;
 
-  List titles = ["最热主题", "最新主题", "节点列表"];
+  static List titles = ["最热主题", "最新主题", "节点列表"];
   String title = '最热主题';
 
   //话题列表
@@ -31,6 +30,10 @@ class MainViewModel with ChangeNotifier {
     title = titles[index];
     currentPageIndex = index;
     notifyListeners();
+  }
+
+  Widget get getTitle {
+    return Text(title, style: TextStyle(fontSize: 18));
   }
 
   loadAll() async {

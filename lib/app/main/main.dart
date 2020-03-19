@@ -58,15 +58,90 @@ class HomePageEx extends StatelessWidget {
 
   _drawerTitle(BuildContext context, int index) {
     return ListTile(
-      title: Consumer<MainViewModel>(
-        builder: (_, model, child) => Text(
-          model.titles[index],
-          style: TextStyle(fontSize: 18),
-        ),
+      title: Text(
+        MainViewModel.titles[index],
+        style: TextStyle(fontSize: 18),
       ),
       onTap: () {
-        Provider.of<MainViewModel>(context, listen: false).changeTitle(index);
         Navigator.pop(context);
+//        Provider.of<MainViewModel>(context, listen: false).changeTitle(index);
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Logs.d(message: "home build");
+
+    return Scaffold(
+      appBar: AppBar(
+        titleSpacing: 0.0,
+        title: Consumer<MainViewModel>(
+          builder: (context, model, child) {
+            Logs.d(message: "model change");
+            return model.getTitle;
+          },
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            _drawerHeader(),
+            _drawerTitle(context, HOT_TOPIC),
+            _drawerTitle(context, LATEST_TOPIC),
+            _drawerTitle(context, NODE),
+          ],
+        ),
+      ),
+      body: Consumer<MainViewModel>(
+        builder: (context, model, child) {
+          if(Scaffold.of(context).isDrawerOpen){
+            Navigator.pop(context);
+          }
+          return IndexedStack(
+            index: model.currentPageIndex,
+            children: <Widget>[_hotTopicList, _latestTopicList, _nodes],
+          );
+        },
+      ),
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  final TopicListEx _hotTopicList =
+      TopicListEx(key: UniqueKey(), contentType: HOT_TOPIC);
+  final TopicListEx _latestTopicList =
+      TopicListEx(key: UniqueKey(), contentType: LATEST_TOPIC);
+  final NodesEx _nodes = NodesEx();
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  _drawerHeader() {
+    return DrawerHeader(
+      decoration: BoxDecoration(color: Colors.blue),
+      child: Center(
+        child: Text(
+          "V2EX",
+          style: TextStyle(fontSize: 36, color: Colors.white),
+        ),
+      ),
+    );
+  }
+
+  _drawerTitle(int index) {
+    return ListTile(
+      title: Text(
+        MainViewModel.titles[index],
+        style: TextStyle(fontSize: 18),
+      ),
+      onTap: () {
+        Navigator.pop(context);
+        Provider.of<MainViewModel>(context, listen: false).changeTitle(index);
       },
     );
   }
@@ -78,108 +153,30 @@ class HomePageEx extends StatelessWidget {
       appBar: AppBar(
         titleSpacing: 0.0,
         title: Consumer<MainViewModel>(
-          builder: (context, model, child) => Text(
-            model.title,
-            style: TextStyle(fontSize: 18),
-          ),
+          builder: (_, model, __) => Text(model.title),
         ),
       ),
       drawer: Drawer(
         child: ListView(
+          padding: EdgeInsets.zero,
           children: <Widget>[
             _drawerHeader(),
-            _drawerTitle(context, HOT_TOPIC),
-            _drawerTitle(context, LATEST_TOPIC),
-            _drawerTitle(context, NODE),
+            _drawerTitle(HOT_TOPIC),
+            _drawerTitle(LATEST_TOPIC),
+            _drawerTitle(NODE),
           ],
         ),
       ),
       body: Consumer<MainViewModel>(
-        builder: (context, model, child) => IndexedStack(
+        builder: (_, model, __) => IndexedStack(
           index: model.currentPageIndex,
-          children: <Widget>[_hotTopicList, _latestTopicList, _nodes],
+          children: <Widget>[
+            widget._hotTopicList,
+            widget._latestTopicList,
+            widget._nodes
+          ],
         ),
       ),
     );
   }
 }
-
-//class HomePage extends StatefulWidget {
-//  final TopicList _hotTopicList =
-//      TopicList(key: UniqueKey(), contentType: HOT_TOPIC);
-//  final TopicList _latestTopicList =
-//      TopicList(key: UniqueKey(), contentType: LATEST_TOPIC);
-//  final Nodes _nodes = Nodes();
-//
-//  @override
-//  _HomePageState createState() => _HomePageState();
-//}
-//
-//class _HomePageState extends State<HomePage> {
-//  static final List _titles = ["最热主题", "最新主题", "节点列表"];
-//
-//  String _currentTitle = _titles[0];
-//  int _currentType = HOT_TOPIC;
-//
-//  _changeTitle(String title) {
-//    Logs.d(message: "onTap-$title");
-//    setState(() {
-//      _currentTitle = title;
-//    });
-//  }
-//
-//  _drawerHeader() {
-//    return DrawerHeader(
-//      decoration: BoxDecoration(color: Colors.blue),
-//      child: Center(
-//        child: Text(
-//          "V2EX",
-//          style: TextStyle(fontSize: 36, color: Colors.white),
-//        ),
-//      ),
-//    );
-//  }
-//
-//  _drawerTitle(int index) {
-//    final item = _titles[index];
-//    return ListTile(
-//      title: Text(
-//        item,
-//        style: TextStyle(fontSize: 18),
-//      ),
-//      onTap: () {
-//        Navigator.pop(context);
-//        _changeTitle(item);
-//        _currentType = index;
-//      },
-//    );
-//  }
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    return Scaffold(
-//      appBar: AppBar(
-//        titleSpacing: 0.0,
-//        title: Text(_currentTitle),
-//      ),
-//      drawer: Drawer(
-//        child: ListView(
-//          children: <Widget>[
-//            _drawerHeader(),
-//            _drawerTitle(HOT_TOPIC),
-//            _drawerTitle(LATEST_TOPIC),
-//            _drawerTitle(NODE),
-//          ],
-//        ),
-//      ),
-//      body: IndexedStack(
-//        index: _currentType,
-//        children: <Widget>[
-//          widget._hotTopicList,
-//          widget._latestTopicList,
-//          widget._nodes
-//        ],
-//      ),
-//    );
-//  }
-//}
