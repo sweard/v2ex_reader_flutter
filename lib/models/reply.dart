@@ -1,15 +1,17 @@
 import 'package:flutter/widgets.dart';
-import 'package:v2exreader/data/replies.dart';
+import 'package:v2exreader/data/reply.dart';
 import 'package:v2exreader/network/http_util.dart';
 
-class TopicViewModel with ChangeNotifier {
+class ReplyModel with ChangeNotifier {
   final int id;
 
-  TopicViewModel(this.id) {
+  ReplyModel(this.id) {
     refreshReplies();
   }
 
   List<Show> replies = [];
+
+  List<Show> getReplies() => replies;
 
   refreshReplies() async {
     List<Show> refreshData = await HttpUtil.loadReplies(id);

@@ -7,8 +7,8 @@ import 'package:v2exreader/utils/logUtil.dart';
 
 import '../main.dart';
 
-class MainViewModel with ChangeNotifier {
-  MainViewModel() {
+class HomeModel with ChangeNotifier {
+  HomeModel() {
     _loadAll();
   }
 

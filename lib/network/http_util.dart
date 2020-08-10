@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:v2exreader/data/node.dart';
-import 'package:v2exreader/data/replies.dart';
+import 'package:v2exreader/data/reply.dart';
 import 'package:v2exreader/data/topic.dart';
 
 class HttpUtil {

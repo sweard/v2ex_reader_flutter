@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:v2exreader/model/main.dart';
+import 'package:v2exreader/models/home.dart';
 import 'package:v2exreader/utils/logUtil.dart';
 
 class NodesEx extends StatelessWidget {
@@ -8,7 +8,7 @@ class NodesEx extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Logs.d(message: "node list  build");
-    return Consumer<MainViewModel>(
+    return Consumer<HomeModel>(
       builder: (context, model, child) => RefreshIndicator(
         child: Scrollbar(
           child: GridView.builder(

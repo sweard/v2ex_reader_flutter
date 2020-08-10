@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:v2exreader/model/main.dart';
+import 'package:v2exreader/models/home.dart';
 import 'package:v2exreader/utils/logUtil.dart';
 
 import '../data/topic.dart';
@@ -103,7 +103,7 @@ class TopicListEx extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Logs.d(message: "topic list $contentType build");
-    return Consumer<MainViewModel>(
+    return Consumer<HomeModel>(
       builder: (context, model, child) => RefreshIndicator(
         child: ListView.builder(
             itemBuilder: (context, index) =>

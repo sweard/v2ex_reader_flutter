@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:v2exreader/model/main.dart';
+import 'package:v2exreader/models/home.dart';
 
 import 'screens/nodes.dart';
 import 'screens/topic_list.dart';
@@ -54,7 +54,7 @@ class HomePageEx extends StatelessWidget {
   }
 
   _drawerTitle(BuildContext context, int index) {
-    return Consumer<MainViewModel>(
+    return Consumer<HomeModel>(
       builder: (_, model, __) =>
           ListTile(
             title: Text(
@@ -76,11 +76,11 @@ class HomePageEx extends StatelessWidget {
     Logs.d(message: "home build");
 
     return ChangeNotifierProvider(
-      create: (context) => MainViewModel(),
+      create: (context) => HomeModel(),
       child: Scaffold(
         appBar: AppBar(
           titleSpacing: 0.0,
-          title: Consumer<MainViewModel>(
+          title: Consumer<HomeModel>(
             builder: (context, model, child) {
               Logs.d(message: "model change");
               return model.getTitle;
@@ -106,7 +106,7 @@ class HomePageEx extends StatelessWidget {
             ],
           ),
         ),
-        body: Consumer<MainViewModel>(
+        body: Consumer<HomeModel>(
           builder: (context, model, child) {
             Logs.d(message: Scaffold
                 .of(context)

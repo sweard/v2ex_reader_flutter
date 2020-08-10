@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:v2exreader/data/replies.dart';
+import 'package:provider/provider.dart';
+import 'package:v2exreader/data/reply.dart';
+import 'package:v2exreader/models/reply.dart';
 
 import '../transparent_image.dart';
 
-class Topic extends StatelessWidget{
-
+class Topic extends StatelessWidget {
   //文本间分割符
   final Text _divider = Text("-");
 
@@ -80,17 +81,14 @@ class Topic extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-
-    return Consumer<MainViewModel>(
+    return Consumer<ReplyModel>(
       builder: (context, model, child) => RefreshIndicator(
         child: ListView.builder(
-            itemBuilder: (context, index) =>
-                _item(model.getSpecificTopics(contentType)[index]),
+            itemBuilder: (context, index) => _item(model.getReplies()[index]),
             physics: AlwaysScrollableScrollPhysics(),
-            itemCount: model.getSpecificTopics(contentType).length),
-        onRefresh: () => model.refreshSpecificTopics(contentType),
+            itemCount: model.getReplies().length),
+        onRefresh: () => model.refreshReplies(),
       ),
     );
   }
-
 }
