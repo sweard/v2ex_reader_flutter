@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:v2exreader/model/main.dart';
-import 'package:v2exreader/utils/logUtil.dart';
+import 'package:v2exreader/data/replies.dart';
 
-import '../data/topic.dart';
 import '../transparent_image.dart';
 
-class TopicListEx extends StatelessWidget {
-  TopicListEx({Key key, this.contentType}) : super(key: key);
-
-  final int contentType;
+class Topic extends StatelessWidget{
 
   //文本间分割符
   final Text _divider = Text("-");
 
   //列表item
-  _item(Topic topic) {
+  _item(Show topic) {
     //作者头像
     Padding _avatar = Padding(
       padding: EdgeInsets.fromLTRB(6, 0, 6, 0),
@@ -36,24 +30,8 @@ class TopicListEx extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(height: 8),
-          Text(
-            topic.title,
-            softWrap: true,
-          ),
-          SizedBox(height: 8),
           Row(
             children: <Widget>[
-              ButtonTheme(
-                minWidth: 0,
-                height: 24,
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                child: FlatButton(
-                  child: Text(topic.node.name),
-                  padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
-                  onPressed: () {},
-                ),
-              ),
-              _divider,
               ButtonTheme(
                 minWidth: 0,
                 height: 24,
@@ -91,7 +69,7 @@ class TopicListEx extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(right: 8),
             child: Text(
-              topic.replies.toString(),
+              topic.thanks.toString(),
               style: TextStyle(color: Colors.black54),
             ),
           )
@@ -102,7 +80,7 @@ class TopicListEx extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Logs.d(message: "topic list $contentType build");
+
     return Consumer<MainViewModel>(
       builder: (context, model, child) => RefreshIndicator(
         child: ListView.builder(
@@ -114,5 +92,5 @@ class TopicListEx extends StatelessWidget {
       ),
     );
   }
-}
 
+}

@@ -33,10 +33,6 @@ class MainViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  refreshScreen() {
-    notifyListeners();
-  }
-
   Widget get getTitle {
     return Text(title, style: TextStyle(fontSize: 18));
   }

@@ -9,8 +9,8 @@ class Member {
       avatarMini;
   final int id;
 
-  Member(this.username, this.website, this.github, this.psn, this.url,
-      this.avatarMini, this.avatarNormal, this.avatarLarge, this.id);
+//  Member(this.username, this.website, this.github, this.psn, this.url,
+//      this.avatarMini, this.avatarNormal, this.avatarLarge, this.id);
 
   Member.fromJson(Map<String, dynamic> json)
       : username = json['username'],
