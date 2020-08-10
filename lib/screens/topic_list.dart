@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:v2exreader/app/main/MainViewModel.dart';
+import 'package:v2exreader/model/main.dart';
 import 'package:v2exreader/utils/logUtil.dart';
 
-import '../../data/Topic.dart';
-import '../../transparent_image.dart';
+import '../data/topic.dart';
+import '../transparent_image.dart';
 
 class TopicListEx extends StatelessWidget {
   TopicListEx({Key key, this.contentType}) : super(key: key);
@@ -25,7 +25,7 @@ class TopicListEx extends StatelessWidget {
             height: 48,
             fit: BoxFit.cover,
             placeholder: kTransparentImage,
-            image: "https:" + topic.member.avatarLarge),
+            image: topic.member.avatarLarge),
         borderRadius: BorderRadius.circular(8),
       ),
     );

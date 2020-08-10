@@ -45,8 +45,8 @@
 "replies": 99,
 "id": 641467
 }*/
-import 'Member.dart';
-import 'Node.dart';
+import 'member.dart';
+import 'node.dart';
 
 class Topic {
   final Node node;

@@ -1,7 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import 'Node.dart';
+import 'node.dart';
 
 class SQLiteHelper {
   static const tableName_nodes = 'nodes';

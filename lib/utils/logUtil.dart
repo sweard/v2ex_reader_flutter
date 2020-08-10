@@ -9,5 +9,6 @@ class Logs {
     } else {
       print(tag + ":$message");
     }
+    debugPrintStack();
   }
 }

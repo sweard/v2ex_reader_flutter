@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:v2exreader/app/main/MainViewModel.dart';
+import 'package:v2exreader/model/main.dart';
 
-import 'nodes.dart';
-import 'topic_list.dart';
-import '../../utils/logUtil.dart';
+import 'screens/nodes.dart';
+import 'screens/topic_list.dart';
+import 'utils/logUtil.dart';
 
 void main() => runApp(MyApp());
 
@@ -57,16 +57,27 @@ class HomePageEx extends StatelessWidget {
   }
 
   _drawerTitle(BuildContext context, int index) {
-    return ListTile(
-      title: Text(
-        MainViewModel.titles[index],
-        style: TextStyle(fontSize: 18),
+    return Consumer<MainViewModel>(
+      builder: (_, model, __) => ListTile(
+        title: Text(
+          model.titles[index],
+          style: TextStyle(fontSize: 18),
+        ),
+        onTap: () {
+          model.selectPage(index);
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            Navigator.pop(context);
+          });
+        },
       ),
-      onTap: () {
-        Navigator.pop(context);
-//        Provider.of<MainViewModel>(context, listen: false).changeTitle(index);
-      },
     );
+  }
+
+  void _drawerStateChange(BuildContext context, bool open) {
+    Logs.d(message: "drawer callback $open");
+    if (!open) {
+      Provider.of<MainViewModel>(context, listen: false).refreshScreen();
+    }
   }
 
   @override
@@ -82,6 +93,14 @@ class HomePageEx extends StatelessWidget {
             return model.getTitle;
           },
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              showSearch(context: context, delegate: null);
+            },
+          ),
+        ],
       ),
       drawer: Drawer(
         child: ListView(
@@ -94,88 +113,16 @@ class HomePageEx extends StatelessWidget {
           ],
         ),
       ),
+//      drawerCallback: (bool open) => _drawerStateChange(context, open),
       body: Consumer<MainViewModel>(
         builder: (context, model, child) {
-          if(Scaffold.of(context).isDrawerOpen){
-            Navigator.pop(context);
-          }
+          Logs.d(message: Scaffold.of(context).isDrawerOpen);
+
           return IndexedStack(
             index: model.currentPageIndex,
             children: <Widget>[_hotTopicList, _latestTopicList, _nodes],
           );
         },
-      ),
-    );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  final TopicListEx _hotTopicList =
-      TopicListEx(key: UniqueKey(), contentType: HOT_TOPIC);
-  final TopicListEx _latestTopicList =
-      TopicListEx(key: UniqueKey(), contentType: LATEST_TOPIC);
-  final NodesEx _nodes = NodesEx();
-
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  _drawerHeader() {
-    return DrawerHeader(
-      decoration: BoxDecoration(color: Colors.blue),
-      child: Center(
-        child: Text(
-          "V2EX",
-          style: TextStyle(fontSize: 36, color: Colors.white),
-        ),
-      ),
-    );
-  }
-
-  _drawerTitle(int index) {
-    return ListTile(
-      title: Text(
-        MainViewModel.titles[index],
-        style: TextStyle(fontSize: 18),
-      ),
-      onTap: () {
-        Navigator.pop(context);
-        Provider.of<MainViewModel>(context, listen: false).changeTitle(index);
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    Logs.d(message: "home build");
-    return Scaffold(
-      appBar: AppBar(
-        titleSpacing: 0.0,
-        title: Consumer<MainViewModel>(
-          builder: (_, model, __) => Text(model.title),
-        ),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            _drawerHeader(),
-            _drawerTitle(HOT_TOPIC),
-            _drawerTitle(LATEST_TOPIC),
-            _drawerTitle(NODE),
-          ],
-        ),
-      ),
-      body: Consumer<MainViewModel>(
-        builder: (_, model, __) => IndexedStack(
-          index: model.currentPageIndex,
-          children: <Widget>[
-            widget._hotTopicList,
-            widget._latestTopicList,
-            widget._nodes
-          ],
-        ),
       ),
     );
   }

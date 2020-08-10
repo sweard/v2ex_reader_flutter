@@ -1,19 +1,20 @@
 import 'package:flutter/widgets.dart';
-import 'package:v2exreader/app/main/main.dart';
-import 'package:v2exreader/data/SQLiteHelper.dart';
-import 'package:v2exreader/data/Node.dart';
-import 'package:v2exreader/data/Topic.dart';
+import 'package:v2exreader/data/sqlitehelper.dart';
+import 'package:v2exreader/data/node.dart';
+import 'package:v2exreader/data/topic.dart';
 import 'package:v2exreader/network/http_util.dart';
 import 'package:v2exreader/utils/logUtil.dart';
 
+import '../main.dart';
+
 class MainViewModel with ChangeNotifier {
   MainViewModel() {
-    loadAll();
+    _loadAll();
   }
 
   int currentPageIndex = 0;
 
-  static List titles = ["最热主题", "最新主题", "节点列表"];
+  List titles = ["最热主题", "最新主题", "节点列表"];
   String title = '最热主题';
 
   //话题列表
@@ -26,9 +27,13 @@ class MainViewModel with ChangeNotifier {
   List<Node> nodes = [];
 
   /// 修改标题
-  void changeTitle(int index) {
+  selectPage(int index) {
     title = titles[index];
     currentPageIndex = index;
+    notifyListeners();
+  }
+
+  refreshScreen() {
     notifyListeners();
   }
 
@@ -36,7 +41,7 @@ class MainViewModel with ChangeNotifier {
     return Text(title, style: TextStyle(fontSize: 18));
   }
 
-  loadAll() async {
+  _loadAll() async {
     List<Node> localData = await SQLiteHelper.nodes();
     Logs.d(message: "Node local data 数量-" + localData.length.toString());
     if (localData.isEmpty) {
@@ -73,18 +78,6 @@ class MainViewModel with ChangeNotifier {
     }
     notifyListeners();
   }
-
-//  _getNodes() async {
-//    List<Node> localData = await SQLiteHelper.nodes();
-//    Logs.d(message: "Node local data 数量-" + localData.length.toString());
-//    if (localData.isEmpty) {
-//      Logs.d(message: "加载服务器数据");
-//      refreshNodes();
-//    } else {
-//      Logs.d(message: "加载本地数据");
-//      nodes.addAll(localData);
-//    }
-//  }
 
   refreshNodes() async {
     nodes.clear();

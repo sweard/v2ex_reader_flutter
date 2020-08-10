@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:v2exreader/data/Node.dart';
-import 'package:v2exreader/data/Topic.dart';
+import 'package:v2exreader/data/node.dart';
+import 'package:v2exreader/data/topic.dart';
 
 class HttpUtil {
   static const hotTopic = "https://www.v2ex.com/api/topics/hot.json";
