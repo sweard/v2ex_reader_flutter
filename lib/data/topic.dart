@@ -84,7 +84,7 @@ class Topic {
     int minute = seconds % (3600 * 24) % 3600 ~/ 60;
     String a = day != 0 ? "$day天" : "";
     String b = hour != 0 ? "$hour小时" : "";
-    String c = minute != 0 ? "$minute分钟" : "";
+    String c = minute != 0 ? "$minute分钟" : "数秒";
     return a + b + c + "前";
   }
 

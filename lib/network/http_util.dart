@@ -14,6 +14,7 @@ class HttpUtil {
   static const topicByNode =
       "https://www.v2ex.com/api/topics/show.json?node_name=";
 
+  ///获取热门主题
   static Future<List<Topic>> loadHotTopic() async {
     final response = await http.get(hotTopic);
     if (response.statusCode == 200) {
@@ -29,6 +30,7 @@ class HttpUtil {
     }
   }
 
+  ///获取最新主题
   static Future<List<Topic>> loadLatestTopic() async {
     final response = await http.get(latest);
     if (response.statusCode == 200) {
@@ -44,6 +46,7 @@ class HttpUtil {
     }
   }
 
+  ///获取所有节点
   static Future<List<Node>> loadAllNodes() async {
     final response = await http.get(nodes);
     if (response.statusCode == 200) {
@@ -58,7 +61,8 @@ class HttpUtil {
     }
   }
 
-  static Future<List<Topic>> loadTopicByNod(String node) async {
+  ///获取对应节点下所有主题
+  static Future<List<Topic>> loadTopicByNode(String node) async {
     final response = await http.get(topicByNode + node);
     if (response.statusCode == 200) {
       List<Topic> topics = [];
@@ -72,6 +76,7 @@ class HttpUtil {
     }
   }
 
+  ///获取对应主题id下所有回复
   static Future<List<Show>> loadReplies(int id) async {
     final response = await http.get(replies + id.toString());
     if (response.statusCode == 200) {

@@ -5,6 +5,7 @@ import 'package:v2exreader/models/reply_model.dart';
 
 import '../transparent_image.dart';
 
+///话题及回复
 class TopicContent extends StatelessWidget {
   TopicContent(this._id, this._title, this._content);
 
@@ -110,7 +111,7 @@ class ReplyList extends StatelessWidget {
               if (index == 0) {
                 return Card(
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(4, 4, 4, 4),
+                    padding: EdgeInsets.fromLTRB(8, 8, 8, 8),
                     child: Text(
                       model.content.isEmpty ? "rt如题rt" : model.content,
                       softWrap: true,

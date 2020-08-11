@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:v2exreader/main.dart';
 import 'package:v2exreader/models/home_model.dart';
+import 'package:v2exreader/models/topic_model.dart';
 import 'package:v2exreader/screens/nodes.dart';
+import 'package:v2exreader/screens/topics.dart';
 import 'package:v2exreader/utils/log_util.dart';
 
-import 'topic_list.dart';
-
+///主页，通过drawer切换子界面
 class HomePageEx extends StatelessWidget {
-  final TopicListEx _hotTopicList =
-  TopicListEx(key: UniqueKey(), contentType: HOT_TOPIC);
-  final TopicListEx _latestTopicList =
-  TopicListEx(key: UniqueKey(), contentType: LATEST_TOPIC);
-  final NodesEx _nodes = NodesEx();
+  final TopicPage _hotTopicList =
+      TopicPage(key: UniqueKey(), contentType: HOT_TOPIC);
+  final TopicPage _latestTopicList =
+      TopicPage(key: UniqueKey(), contentType: LATEST_TOPIC);
+  final NodesPage _nodes = NodesPage();
 
   _drawerHeader() {
     return DrawerHeader(
@@ -47,15 +48,18 @@ class HomePageEx extends StatelessWidget {
   Widget build(BuildContext context) {
     Logs.d(message: "home build");
 
-    return ChangeNotifierProvider(
-      create: (context) => HomeModel(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => HomeModel()),
+        ChangeNotifierProvider(create: (context) => TopicModel())
+      ],
       child: Scaffold(
         appBar: AppBar(
           titleSpacing: 0.0,
           title: Consumer<HomeModel>(
             builder: (context, model, child) {
               Logs.d(message: "model change");
-              return model.getTitle;
+              return Text(model.currentTitle, style: TextStyle(fontSize: 18));
             },
           ),
           actions: <Widget>[
