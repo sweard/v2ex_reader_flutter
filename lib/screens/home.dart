@@ -72,7 +72,7 @@ class HomePageEx extends StatelessWidget {
                       Logs.d(message: "search button click");
                       showSearch(
                           context: context,
-                          delegate: NodesSearchPage(model.nodes));
+                          delegate: NodesSearchPage(model.getNodes()));
                     },
                   ),
                   visible: model.currentPageIndex == NODE,

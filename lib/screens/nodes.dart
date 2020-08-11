@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:v2exreader/data/node.dart';
-import 'package:v2exreader/models/node_model.dart';
+import 'package:v2exreader/models/home_model.dart';
 import 'package:v2exreader/screens/topics.dart';
 import 'package:v2exreader/utils/log_util.dart';
 
@@ -10,37 +10,34 @@ class NodesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Logs.d(message: "node list  build");
-    return ChangeNotifierProvider(
-      create: (context) => NodeModel(),
-      child: Consumer<NodeModel>(
-        builder: (context, model, child) => RefreshIndicator(
-          child: Scrollbar(
-            child: GridView.builder(
-              itemBuilder: (context, index) => Card(
-                child: FlatButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            NodeTopic(model.getNodes()[index].name),
-                      ),
-                    );
-                  },
-                  child: Text(
-                    model.getNodes()[index].title,
-                    textAlign: TextAlign.center,
-                  ),
+    return Consumer<HomeModel>(
+      builder: (context, model, child) => RefreshIndicator(
+        child: Scrollbar(
+          child: GridView.builder(
+            itemBuilder: (context, index) => Card(
+              child: FlatButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          NodeTopic(model.getNodes()[index].name),
+                    ),
+                  );
+                },
+                child: Text(
+                  model.getNodes()[index].title,
+                  textAlign: TextAlign.center,
                 ),
               ),
-              physics: AlwaysScrollableScrollPhysics(),
-              itemCount: model.getNodes().length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4, mainAxisSpacing: 6, childAspectRatio: 1.0),
             ),
+            physics: AlwaysScrollableScrollPhysics(),
+            itemCount: model.getNodes().length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4, mainAxisSpacing: 6, childAspectRatio: 1.0),
           ),
-          onRefresh: () => model.refreshNodes(),
         ),
+        onRefresh: () => model.refreshNodes(),
       ),
     );
   }
@@ -80,7 +77,7 @@ class NodesSearchPage extends SearchDelegate<Node> {
           icon: AnimatedIcons.menu_arrow, progress: transitionAnimation),
       onPressed: () {
 //        if (query.isEmpty) {
-          close(context, null);
+        close(context, null);
 //        } else {
 //          query = "";
 //          showSuggestions(context);
@@ -93,7 +90,8 @@ class NodesSearchPage extends SearchDelegate<Node> {
   Widget buildResults(BuildContext context) {
     List<Node> result = [];
     for (var item in sourceList) {
-      if (query.isNotEmpty && item.title.contains(query)) {
+      if (query.isNotEmpty &&
+          item.title.toUpperCase().contains(query.toUpperCase())) {
         result.add(item);
       }
     }
@@ -140,8 +138,14 @@ class NodesSearchPage extends SearchDelegate<Node> {
           ),
         ),
         onTap: () {
-          query = suggest[index].title;
-          showResults(context);
+//          query = suggest[index].title;
+//          showResults(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => NodeTopic(suggest[index].name),
+            ),
+          );
         },
       ),
     );
