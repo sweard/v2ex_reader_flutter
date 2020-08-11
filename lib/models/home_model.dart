@@ -9,6 +9,7 @@ import '../main.dart';
 
 class HomeModel with ChangeNotifier {
   HomeModel() {
+    Logs.d(message: "HomeModel init");
     _loadAll();
   }
 
@@ -25,6 +26,8 @@ class HomeModel with ChangeNotifier {
 
   //节点列表
   List<Node> nodes = [];
+
+
 
   /// 修改标题
   selectPage(int index) {

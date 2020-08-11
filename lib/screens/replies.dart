@@ -1,11 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:v2exreader/data/reply.dart';
-import 'package:v2exreader/models/reply.dart';
+import 'package:v2exreader/models/reply_model.dart';
 
 import '../transparent_image.dart';
 
-class Topic extends StatelessWidget {
+class TopicContent extends StatelessWidget {
+  TopicContent(this._id, this._title, this._content);
+
+  final int _id;
+  final String _title, _content;
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => ReplyModel(_id, _content),
+      child: Scaffold(
+        appBar: AppBar(
+          titleSpacing: 0.0,
+          title: Text(
+            _title,
+            style: TextStyle(fontSize: 18),
+          ),
+        ),
+        body: ReplyList(),
+      ),
+    );
+  }
+}
+
+class ReplyList extends StatelessWidget {
   //文本间分割符
   final Text _divider = Text("-");
 
@@ -30,6 +54,11 @@ class Topic extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          SizedBox(height: 8),
+          Text(
+            topic.content,
+            softWrap: true,
+          ),
           SizedBox(height: 8),
           Row(
             children: <Widget>[
@@ -67,13 +96,6 @@ class Topic extends StatelessWidget {
         children: <Widget>[
           _avatar,
           _content,
-          Padding(
-            padding: EdgeInsets.only(right: 8),
-            child: Text(
-              topic.thanks.toString(),
-              style: TextStyle(color: Colors.black54),
-            ),
-          )
         ],
       ),
     );
@@ -84,9 +106,23 @@ class Topic extends StatelessWidget {
     return Consumer<ReplyModel>(
       builder: (context, model, child) => RefreshIndicator(
         child: ListView.builder(
-            itemBuilder: (context, index) => _item(model.getReplies()[index]),
+            itemBuilder: (context, index) {
+              if (index == 0) {
+                return Card(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(4, 4, 4, 4),
+                    child: Text(
+                      model.content.isEmpty ? "rt如题rt" : model.content,
+                      softWrap: true,
+                    ),
+                  ),
+                );
+              } else {
+                return _item(model.getReplies()[index - 1]);
+              }
+            },
             physics: AlwaysScrollableScrollPhysics(),
-            itemCount: model.getReplies().length),
+            itemCount: model.getReplies().length + 1),
         onRefresh: () => model.refreshReplies(),
       ),
     );

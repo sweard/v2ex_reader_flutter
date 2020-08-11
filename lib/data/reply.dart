@@ -1,7 +1,7 @@
 class Show {
   final String content, contentRendered;
   final Member member;
-  final int id, thanks, created, lastModified;
+  final int id,  created, lastModified;
 
   String fromNowTerm() {
     int now = DateTime.now().millisecondsSinceEpoch ~/1000;
@@ -11,13 +11,12 @@ class Show {
     int minute = seconds % (3600 * 24) % 3600 ~/ 60;
     String a = day != 0 ? "$day天" : "";
     String b = hour != 0 ? "$hour小时" : "";
-    String c = minute != 0 ? "$minute分钟" : "";
+    String c = minute != 0 ? "$minute分钟" : "几秒";
     return a + b + c + "前";
   }
 
   Show.fromJson(Map<String, dynamic> json)
       : id = json["id"],
-        thanks = json["thanks"],
         content = json["content"],
         contentRendered = json["content_rendered"],
         member = Member.fromJson(json["member"]),

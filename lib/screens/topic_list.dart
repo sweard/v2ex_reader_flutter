@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:v2exreader/models/home.dart';
+import 'package:v2exreader/models/home_model.dart';
+import 'package:v2exreader/screens/replies.dart';
 import 'package:v2exreader/utils/logUtil.dart';
 
 import '../data/topic.dart';
 import '../transparent_image.dart';
 
+///最新主题，最热主题共用界面
+///contentType HOT_TOPIC LATEST_TOPIC
 class TopicListEx extends StatelessWidget {
   TopicListEx({Key key, this.contentType}) : super(key: key);
 
@@ -15,7 +18,7 @@ class TopicListEx extends StatelessWidget {
   final Text _divider = Text("-");
 
   //列表item
-  _item(Topic topic) {
+  _item(BuildContext context, Topic topic) {
     //作者头像
     Padding _avatar = Padding(
       padding: EdgeInsets.fromLTRB(6, 0, 6, 0),
@@ -82,21 +85,30 @@ class TopicListEx extends StatelessWidget {
       ),
     );
 
-    return Card(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          _avatar,
-          _content,
-          Padding(
-            padding: EdgeInsets.only(right: 8),
-            child: Text(
-              topic.replies.toString(),
-              style: TextStyle(color: Colors.black54),
-            ),
-          )
-        ],
+    return GestureDetector(
+      child: Card(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            _avatar,
+            _content,
+            Padding(
+              padding: EdgeInsets.only(right: 8),
+              child: Text(
+                topic.replies.toString(),
+                style: TextStyle(color: Colors.black54),
+              ),
+            )
+          ],
+        ),
       ),
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    TopicContent(topic.id, topic.title, topic.content)));
+      },
     );
   }
 
@@ -107,7 +119,7 @@ class TopicListEx extends StatelessWidget {
       builder: (context, model, child) => RefreshIndicator(
         child: ListView.builder(
             itemBuilder: (context, index) =>
-                _item(model.getSpecificTopics(contentType)[index]),
+                _item(context, model.getSpecificTopics(contentType)[index]),
             physics: AlwaysScrollableScrollPhysics(),
             itemCount: model.getSpecificTopics(contentType).length),
         onRefresh: () => model.refreshSpecificTopics(contentType),
@@ -115,4 +127,3 @@ class TopicListEx extends StatelessWidget {
     );
   }
 }
-
