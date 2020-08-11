@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:v2exreader/data/node.dart';
 import 'package:v2exreader/data/reply.dart';
 import 'package:v2exreader/data/topic.dart';
-import 'package:v2exreader/utils/logUtil.dart';
+import 'package:v2exreader/utils/log_util.dart';
 
 class HttpUtil {
   static const hotTopic = "https://www.v2ex.com/api/topics/hot.json";

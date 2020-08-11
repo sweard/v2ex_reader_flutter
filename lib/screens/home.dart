@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:v2exreader/main.dart';
 import 'package:v2exreader/models/home_model.dart';
 import 'package:v2exreader/screens/nodes.dart';
-import 'package:v2exreader/utils/logUtil.dart';
+import 'package:v2exreader/utils/log_util.dart';
 
 import 'topic_list.dart';
 

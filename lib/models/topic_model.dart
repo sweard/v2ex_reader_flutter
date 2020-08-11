@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:v2exreader/data/topic.dart';
 import 'package:v2exreader/main.dart';
 import 'package:v2exreader/network/http_util.dart';
-import 'package:v2exreader/utils/logUtil.dart';
+import 'package:v2exreader/utils/log_util.dart';
 
 ///话题，外层数据
 class TopicModel with ChangeNotifier{

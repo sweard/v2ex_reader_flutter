@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:v2exreader/models/home_model.dart';
 import 'package:v2exreader/screens/replies.dart';
-import 'package:v2exreader/utils/logUtil.dart';
+import 'package:v2exreader/utils/log_util.dart';
 
 import '../data/topic.dart';
 import '../transparent_image.dart';

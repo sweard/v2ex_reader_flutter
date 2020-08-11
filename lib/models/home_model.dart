@@ -3,7 +3,7 @@ import 'package:v2exreader/data/sqlitehelper.dart';
 import 'package:v2exreader/data/node.dart';
 import 'package:v2exreader/data/topic.dart';
 import 'package:v2exreader/network/http_util.dart';
-import 'package:v2exreader/utils/logUtil.dart';
+import 'package:v2exreader/utils/log_util.dart';
 
 import '../main.dart';
 

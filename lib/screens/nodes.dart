@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:v2exreader/data/node.dart';
 import 'package:v2exreader/models/home_model.dart';
-import 'package:v2exreader/utils/logUtil.dart';
+import 'package:v2exreader/utils/log_util.dart';
 
 class NodesEx extends StatelessWidget {
   @override
