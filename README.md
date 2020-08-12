@@ -16,9 +16,9 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.
 
 ## Screenshot
-![avatar](https://github.com/sweard/v2ex_reader_flutter/blob/master/screenshot/1.png)
-![avatar](https://github.com/sweard/v2ex_reader_flutter/blob/master/screenshot/2.png)
-![avatar](https://github.com/sweard/v2ex_reader_flutter/blob/master/screenshot/3.png)
-![avatar](https://github.com/sweard/v2ex_reader_flutter/blob/master/screenshot/4.png)
-![avatar](https://github.com/sweard/v2ex_reader_flutter/blob/master/screenshot/5.png)
-![avatar](https://github.com/sweard/v2ex_reader_flutter/blob/master/screenshot/6.png)
+<img src="https://github.com/sweard/v2ex_reader_flutter/blob/master/screenshot/1.png" style="zoom:50%" />
+<img src="https://github.com/sweard/v2ex_reader_flutter/blob/master/screenshot/2.png" style="zoom:50%" />
+<img src="https://github.com/sweard/v2ex_reader_flutter/blob/master/screenshot/3.png" style="zoom:50%" />
+<img src="https://github.com/sweard/v2ex_reader_flutter/blob/master/screenshot/4.png" style="zoom:50%" />
+<img src="https://github.com/sweard/v2ex_reader_flutter/blob/master/screenshot/5.png" style="zoom:50%" />
+<img src="https://github.com/sweard/v2ex_reader_flutter/blob/master/screenshot/6.png" style="zoom:50%" />
