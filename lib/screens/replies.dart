@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:v2exreader/data/reply.dart';
 import 'package:v2exreader/models/reply_model.dart';
+import 'package:v2exreader/screens/member_detail.dart';
 
 import '../transparent_image.dart';
 
@@ -35,7 +36,7 @@ class ReplyList extends StatelessWidget {
   final Text _divider = Text("-");
 
   //列表item
-  _item(Show topic) {
+  _item(BuildContext context, Show topic) {
     //作者头像
     Padding _avatar = Padding(
       padding: EdgeInsets.fromLTRB(6, 0, 6, 0),
@@ -70,7 +71,15 @@ class ReplyList extends StatelessWidget {
                 child: FlatButton(
                   child: Text(topic.member.username),
                   padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            MemberDetailPage(topic.member.username),
+                      ),
+                    );
+                  },
                 ),
               ),
               _divider,
@@ -119,7 +128,7 @@ class ReplyList extends StatelessWidget {
                   ),
                 );
               } else {
-                return _item(model.getReplies()[index - 1]);
+                return _item(context, model.getReplies()[index - 1]);
               }
             },
             physics: AlwaysScrollableScrollPhysics(),

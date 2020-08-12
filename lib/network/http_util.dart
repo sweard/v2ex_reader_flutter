@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:v2exreader/data/member.dart';
 import 'package:v2exreader/data/node.dart';
 import 'package:v2exreader/data/reply.dart';
 import 'package:v2exreader/data/topic.dart';
-import 'package:v2exreader/utils/log_util.dart';
 
 class HttpUtil {
   static const hotTopic = "https://www.v2ex.com/api/topics/hot.json";
@@ -13,6 +13,10 @@ class HttpUtil {
   static const replies = "https://www.v2ex.com/api/replies/show.json?topic_id=";
   static const topicByNode =
       "https://www.v2ex.com/api/topics/show.json?node_name=";
+  static const memberDetail =
+      "https://www.v2ex.com/api/members/show.json?username=";
+  static const topicByMember =
+      "https://www.v2ex.com/api/topics/show.json?username=";
 
   ///获取热门主题
   static Future<List<Topic>> loadHotTopic() async {
@@ -85,8 +89,33 @@ class HttpUtil {
       list.forEach((element) {
         replies.add(Show.fromJson(element));
       });
-      Logs.d(message: "reply list $replies");
       return replies;
+    } else {
+      throw Exception("http code != 200");
+    }
+  }
+
+  ///获取用户详情
+  static Future<MemberDetail> fetchMemberDetail(String memberId) async {
+    final response = await http.get(memberDetail + memberId);
+    if (response.statusCode == 200) {
+      dynamic result = jsonDecode(response.body);
+      return MemberDetail.fromJson(result);
+    } else {
+      throw Exception("http code != 200");
+    }
+  }
+
+  ///获取对应用户下所有主题
+  static Future<List<Topic>> loadTopicByMember(String memberId) async {
+    final response = await http.get(topicByMember + memberId);
+    if (response.statusCode == 200) {
+      List<Topic> topics = [];
+      List<dynamic> list = jsonDecode(response.body);
+      list.forEach((item) {
+        topics.add(Topic.fromJson(item));
+      });
+      return topics;
     } else {
       throw Exception("http code != 200");
     }

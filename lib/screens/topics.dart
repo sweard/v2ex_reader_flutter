@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:v2exreader/models/topic_model.dart';
+import 'package:v2exreader/screens/member_detail.dart';
 import 'package:v2exreader/screens/replies.dart';
 import 'package:v2exreader/utils/log_util.dart';
 
@@ -71,7 +72,14 @@ class TopicPage extends StatelessWidget {
                 child: FlatButton(
                   child: Text(topic.member.username),
                   padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MemberDetailPage(topic.member.username),
+                      ),
+                    );
+                  },
                 ),
               ),
               _divider,
@@ -181,7 +189,14 @@ class NodeTopic extends StatelessWidget {
                 child: FlatButton(
                   child: Text(topic.member.username),
                   padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MemberDetailPage(topic.member.username),
+                      ),
+                    );
+                  },
                 ),
               ),
               _divider,
