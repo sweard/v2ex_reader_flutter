@@ -15,6 +15,15 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+## APK
+[arm64-v8a][arm64]
+[arm][armeeabi]
+[x86][X86_64]
+
+[arm64]: https://raw.githubusercontent.com/sweard/v2ex_reader_flutter/master/apk/app-arm64-v8a-release.apk
+[armeeabi]:https://raw.githubusercontent.com/sweard/v2ex_reader_flutter/master/apk/app-armeabi-v7a-release.apk
+[X86_64]: https://raw.githubusercontent.com/sweard/v2ex_reader_flutter/master/apk/app-x86_64-release.apk
+
 ## Screenshot
 <img src="https://github.com/sweard/v2ex_reader_flutter/blob/master/screenshot/1.png" style="zoom:50%" />
 <img src="https://github.com/sweard/v2ex_reader_flutter/blob/master/screenshot/2.png" style="zoom:50%" />
