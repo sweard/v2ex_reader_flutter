@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:v2exreader/data/topic.dart';
-import 'package:v2exreader/main.dart';
-import 'package:v2exreader/network/http_util.dart';
-import 'package:v2exreader/utils/log_util.dart';
+import 'package:v2ex_reader/data/topic.dart';
+import 'package:v2ex_reader/main.dart';
+import 'package:v2ex_reader/network/http_util.dart';
+import 'package:v2ex_reader/utils/log_util.dart';
 
 ///话题，外层数据
 class TopicModel with ChangeNotifier {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:v2exreader/models/topic_model.dart';
-import 'package:v2exreader/screens/member_detail.dart';
-import 'package:v2exreader/screens/replies.dart';
-import 'package:v2exreader/utils/log_util.dart';
+import 'package:v2ex_reader/models/topic_model.dart';
+import 'package:v2ex_reader/screens/member_detail.dart';
+import 'package:v2ex_reader/screens/replies.dart';
+import 'package:v2ex_reader/utils/log_util.dart';
 
 import '../data/topic.dart';
 import '../transparent_image.dart';

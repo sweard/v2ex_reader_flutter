@@ -1,4 +1,4 @@
-# v2exreader
+# v2ex_reader
 
 A new Flutter application.
 

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:v2exreader/main.dart';
-import 'package:v2exreader/models/home_model.dart';
-import 'package:v2exreader/models/topic_model.dart';
-import 'package:v2exreader/screens/nodes.dart';
-import 'package:v2exreader/screens/topics.dart';
-import 'package:v2exreader/utils/log_util.dart';
+import 'package:v2ex_reader/main.dart';
+import 'package:v2ex_reader/models/home_model.dart';
+import 'package:v2ex_reader/models/topic_model.dart';
+import 'package:v2ex_reader/screens/nodes.dart';
+import 'package:v2ex_reader/screens/topics.dart';
+import 'package:v2ex_reader/utils/log_util.dart';
 
 ///主页，通过drawer切换子界面
 class HomePage extends StatelessWidget {

@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:v2exreader/main.dart';
+import 'package:v2ex_reader/main.dart';
 
 
 

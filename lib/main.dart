@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:v2exreader/screens/home.dart';
+import 'package:v2ex_reader/screens/home.dart';
 
 void main() => runApp(MyApp());
 

@@ -1,4 +1,4 @@
-package com.zole.v2exreader
+package com.zole.v2ex_reader
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

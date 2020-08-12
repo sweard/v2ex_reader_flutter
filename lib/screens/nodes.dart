@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:v2exreader/data/node.dart';
-import 'package:v2exreader/models/home_model.dart';
-import 'package:v2exreader/screens/topics.dart';
-import 'package:v2exreader/utils/log_util.dart';
+import 'package:v2ex_reader/data/node.dart';
+import 'package:v2ex_reader/models/home_model.dart';
+import 'package:v2ex_reader/screens/topics.dart';
+import 'package:v2ex_reader/utils/log_util.dart';
 
 ///所有节点页面
 class NodesPage extends StatelessWidget {

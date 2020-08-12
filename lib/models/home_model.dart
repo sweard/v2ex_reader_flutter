@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
-import 'package:v2exreader/data/node.dart';
-import 'package:v2exreader/data/sqlite_helper.dart';
-import 'package:v2exreader/main.dart';
-import 'package:v2exreader/network/http_util.dart';
-import 'package:v2exreader/utils/log_util.dart';
+import 'package:v2ex_reader/data/node.dart';
+import 'package:v2ex_reader/data/sqlite_helper.dart';
+import 'package:v2ex_reader/main.dart';
+import 'package:v2ex_reader/network/http_util.dart';
+import 'package:v2ex_reader/utils/log_util.dart';
 
 class HomeModel with ChangeNotifier {
   HomeModel() {

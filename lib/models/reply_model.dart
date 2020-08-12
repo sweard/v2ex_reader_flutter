@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
-import 'package:v2exreader/data/reply.dart';
-import 'package:v2exreader/network/http_util.dart';
-import 'package:v2exreader/utils/log_util.dart';
+import 'package:v2ex_reader/data/reply.dart';
+import 'package:v2ex_reader/network/http_util.dart';
+import 'package:v2ex_reader/utils/log_util.dart';
 
 ///主题下的回复
 class ReplyModel with ChangeNotifier {
