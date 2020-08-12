@@ -132,7 +132,7 @@ class TopicPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Logs.d(message: "topic list $contentType build");
+    Logs.d(message: "TopicPage $contentType build");
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _refreshIndicatorKey.currentState.show();
     });
@@ -156,6 +156,9 @@ class NodeTopic extends StatelessWidget {
   NodeTopic(this.title);
 
   final String title;
+
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
 
   //文本间分割符
   final Text _divider = Text("-");
@@ -254,6 +257,12 @@ class NodeTopic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Logs.d(message: "NodeTopic build");
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _refreshIndicatorKey.currentState.show();
+    });
+
     return ChangeNotifierProvider(
       create: (context) => NodeTopicModel(title),
       child: Scaffold(
@@ -265,6 +274,7 @@ class NodeTopic extends StatelessWidget {
         ),
         body: Consumer<NodeTopicModel>(
           builder: (context, model, child) => RefreshIndicator(
+            key: _refreshIndicatorKey,
             child: ListView.builder(
                 itemBuilder: (context, index) =>
                     _item(context, model.getNodeTopics()[index]),

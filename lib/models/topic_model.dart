@@ -26,17 +26,17 @@ class TopicModel with ChangeNotifier {
     }
   }
 
-  _loadAll() async {
-    _hotTopics.clear();
-    _hotTopics.addAll(await HttpUtil.loadHotTopic());
-    Logs.d(message: "hotTopics-" + _hotTopics.length.toString());
-
-    _latestTopics.clear();
-    _latestTopics.addAll(await HttpUtil.loadLatestTopic());
-    Logs.d(message: "latestTopics-" + _hotTopics.length.toString());
-
-    notifyListeners();
-  }
+//  _loadAll() async {
+//    _hotTopics.clear();
+//    _hotTopics.addAll(await HttpUtil.loadHotTopic());
+//    Logs.d(message: "hotTopics-" + _hotTopics.length.toString());
+//
+//    _latestTopics.clear();
+//    _latestTopics.addAll(await HttpUtil.loadLatestTopic());
+//    Logs.d(message: "latestTopics-" + _hotTopics.length.toString());
+//
+//    notifyListeners();
+//  }
 
   refreshSpecificTopics(int type) async {
     if (type == HOT_TOPIC) {

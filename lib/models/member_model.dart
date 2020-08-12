@@ -2,10 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:v2exreader/data/member.dart';
 import 'package:v2exreader/data/topic.dart';
 import 'package:v2exreader/network/http_util.dart';
+import 'package:v2exreader/utils/log_util.dart';
 
 class MemberModel with ChangeNotifier {
   MemberModel(this._memberName) {
-    refreshMember();
+    Logs.d(message: "MemberModel init");
+//    refreshMember();
   }
 
   final String _memberName;
@@ -22,10 +24,10 @@ class MemberModel with ChangeNotifier {
     notifyListeners();
   }
 
-  refreshMemberTopic() async {
-    List<Topic> result = await HttpUtil.loadTopicByMember(_memberName);
-    memberTopic.clear();
-    memberTopic.addAll(result);
-    notifyListeners();
-  }
+//  refreshMemberTopic() async {
+//    List<Topic> result = await HttpUtil.loadTopicByMember(_memberName);
+//    memberTopic.clear();
+//    memberTopic.addAll(result);
+//    notifyListeners();
+//  }
 }

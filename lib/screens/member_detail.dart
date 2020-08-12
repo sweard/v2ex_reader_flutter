@@ -6,12 +6,16 @@ import 'package:v2exreader/models/member_model.dart';
 import 'package:v2exreader/screens/replies.dart';
 import 'package:v2exreader/screens/topics.dart';
 import 'package:v2exreader/transparent_image.dart';
+import 'package:v2exreader/utils/log_util.dart';
 
 ///用户详情页面
 class MemberDetailPage extends StatelessWidget {
   MemberDetailPage(this._memberName);
 
   final String _memberName;
+
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
 
   List<Widget> _buildColumn(BuildContext context, MemberModel model) {
     List<Widget> places = [];
@@ -20,6 +24,7 @@ class MemberDetailPage extends StatelessWidget {
     }
     Widget refreshIndicator = Expanded(
       child: RefreshIndicator(
+        key: _refreshIndicatorKey,
         child: ListView.builder(
             itemBuilder: (context, index) =>
                 _memberTopicItem(context, model.memberTopic[index]),
@@ -194,6 +199,13 @@ class MemberDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    Logs.d(message: "MemberDetailPage build");
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _refreshIndicatorKey.currentState.show();
+    });
+
     return ChangeNotifierProvider(
         create: (context) => MemberModel(_memberName),
         child: Scaffold(

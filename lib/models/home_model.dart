@@ -8,7 +8,7 @@ import 'package:v2exreader/utils/log_util.dart';
 class HomeModel with ChangeNotifier {
   HomeModel() {
     Logs.d(message: "HomeModel init");
-    _loadNode();
+    _loadLocalNode();
   }
 
   int currentPageIndex = HOT_TOPIC;
@@ -28,15 +28,11 @@ class HomeModel with ChangeNotifier {
     notifyListeners();
   }
 
-  _loadNode() async {
+  _loadLocalNode() async {
     List<Node> localData = await SQLiteHelper.nodes();
-    Logs.d(message: "Node local data 数量-" + localData.length.toString());
-    if (localData.isEmpty) {
-      Logs.d(message: "加载服务器数据");
-      refreshNodes();
-    } else {
-      Logs.d(message: "加载本地数据");
-      _nodes.addAll(localData);
+    Logs.d(message: "load local Node count -" + localData.length.toString());
+    _nodes.addAll(localData);
+    if (_nodes.isNotEmpty) {
       notifyListeners();
     }
   }

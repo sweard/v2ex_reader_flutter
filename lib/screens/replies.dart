@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:v2exreader/data/reply.dart';
 import 'package:v2exreader/models/reply_model.dart';
 import 'package:v2exreader/screens/member_detail.dart';
+import 'package:v2exreader/utils/log_util.dart';
 
 import '../transparent_image.dart';
 
@@ -32,6 +33,9 @@ class TopicContent extends StatelessWidget {
 }
 
 class ReplyList extends StatelessWidget {
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+
   //文本间分割符
   final Text _divider = Text("-");
 
@@ -113,8 +117,14 @@ class ReplyList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Logs.d(message: "ReplyList build");
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _refreshIndicatorKey.currentState.show();
+    });
+
     return Consumer<ReplyModel>(
       builder: (context, model, child) => RefreshIndicator(
+        key: _refreshIndicatorKey,
         child: ListView.builder(
             itemBuilder: (context, index) {
               if (index == 0) {

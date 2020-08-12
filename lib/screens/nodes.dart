@@ -7,11 +7,21 @@ import 'package:v2exreader/utils/log_util.dart';
 
 ///所有节点页面
 class NodesPage extends StatelessWidget {
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+
   @override
   Widget build(BuildContext context) {
-    Logs.d(message: "node list  build");
+    Logs.d(message: "NodesPage build");
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+
+      _refreshIndicatorKey.currentState.show();
+    });
+
     return Consumer<HomeModel>(
       builder: (context, model, child) => RefreshIndicator(
+        key: _refreshIndicatorKey,
         child: Scrollbar(
           child: GridView.builder(
             itemBuilder: (context, index) => Card(
