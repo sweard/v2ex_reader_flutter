@@ -8,7 +8,7 @@ import 'package:v2exreader/utils/log_util.dart';
 class TopicModel with ChangeNotifier {
   TopicModel() {
     Logs.d(message: "TopicModel init");
-    _loadAll();
+//    _loadAll();
   }
 
   //热门话题列表

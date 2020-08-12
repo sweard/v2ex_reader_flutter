@@ -11,9 +11,11 @@ import '../transparent_image.dart';
 ///最新主题，最热主题共用界面
 ///contentType HOT_TOPIC LATEST_TOPIC
 class TopicPage extends StatelessWidget {
-  TopicPage({Key key, @required this.contentType})
-      : super(key: key);
+  TopicPage({Key key, @required this.contentType}) : super(key: key);
   final int contentType;
+
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
 
   //文本间分割符
   final Text _divider = Text("-");
@@ -76,7 +78,8 @@ class TopicPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => MemberDetailPage(topic.member.username),
+                        builder: (context) =>
+                            MemberDetailPage(topic.member.username),
                       ),
                     );
                   },
@@ -130,15 +133,19 @@ class TopicPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Logs.d(message: "topic list $contentType build");
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _refreshIndicatorKey.currentState.show();
+    });
+
     return Consumer<TopicModel>(
       builder: (context, model, child) => RefreshIndicator(
+        key: _refreshIndicatorKey,
         child: ListView.builder(
             itemBuilder: (context, index) =>
                 _item(context, model.getSpecificTopics(contentType)[index]),
             physics: AlwaysScrollableScrollPhysics(),
             itemCount: model.getSpecificTopics(contentType).length),
-        onRefresh: () =>
-            model.refreshSpecificTopics(contentType),
+        onRefresh: () => model.refreshSpecificTopics(contentType),
       ),
     );
   }
@@ -193,7 +200,8 @@ class NodeTopic extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => MemberDetailPage(topic.member.username),
+                        builder: (context) =>
+                            MemberDetailPage(topic.member.username),
                       ),
                     );
                   },
