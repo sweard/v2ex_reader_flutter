@@ -8,12 +8,16 @@ import 'package:v2exreader/screens/topics.dart';
 import 'package:v2exreader/utils/log_util.dart';
 
 ///主页，通过drawer切换子界面
-class HomePageEx extends StatelessWidget {
+class HomePage extends StatelessWidget {
   final TopicPage _hotTopicList =
       TopicPage(key: UniqueKey(), contentType: HOT_TOPIC);
   final TopicPage _latestTopicList =
       TopicPage(key: UniqueKey(), contentType: LATEST_TOPIC);
   final NodesPage _nodes = NodesPage();
+
+  HomePage() {
+    Logs.d(message: "home init");
+  }
 
   _drawerHeader() {
     return DrawerHeader(
@@ -69,7 +73,7 @@ class HomePageEx extends StatelessWidget {
           titleSpacing: 0.0,
           title: Consumer<HomeModel>(
             builder: (context, model, child) {
-              Logs.d(message: "model change");
+              Logs.d(message: "home title change");
               return Text(model.currentTitle, style: TextStyle(fontSize: 18));
             },
           ),
@@ -98,11 +102,11 @@ class HomePageEx extends StatelessWidget {
             children: <Widget>[
               _drawerHeader(),
               _drawerTitle(context, Icons.wb_sunny, HOT_TOPIC),
-              Divider(height: 1,thickness: 1),
+              Divider(height: 1, thickness: 1),
               _drawerTitle(context, Icons.access_time, LATEST_TOPIC),
-              Divider(height: 1,thickness: 1),
+              Divider(height: 1, thickness: 1),
               _drawerTitle(context, Icons.apps, NODE),
-              Divider(height: 1,thickness: 1),
+              Divider(height: 1, thickness: 1),
             ],
           ),
         ),
