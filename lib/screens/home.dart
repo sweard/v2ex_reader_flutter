@@ -27,12 +27,23 @@ class HomePageEx extends StatelessWidget {
     );
   }
 
-  _drawerTitle(BuildContext context, int index) {
+  _drawerTitle(BuildContext context, IconData icon, int index) {
     return Consumer<HomeModel>(
       builder: (_, model, __) => ListTile(
-        title: Text(
-          model.titles[index],
-          style: TextStyle(fontSize: 18),
+        focusColor: Colors.black12,
+        title: Container(
+          padding: EdgeInsets.only(left: 16),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(icon, size: 32, color: Colors.blueGrey),
+              SizedBox(width: 24),
+              Text(
+                model.titles[index],
+                style: TextStyle(color: Colors.blueGrey, fontSize: 24),
+              ),
+            ],
+          ),
         ),
         onTap: () {
           model.selectPage(index);
@@ -86,9 +97,12 @@ class HomePageEx extends StatelessWidget {
             padding: EdgeInsets.zero,
             children: <Widget>[
               _drawerHeader(),
-              _drawerTitle(context, HOT_TOPIC),
-              _drawerTitle(context, LATEST_TOPIC),
-              _drawerTitle(context, NODE),
+              _drawerTitle(context, Icons.wb_sunny, HOT_TOPIC),
+              Divider(height: 1,thickness: 1),
+              _drawerTitle(context, Icons.access_time, LATEST_TOPIC),
+              Divider(height: 1,thickness: 1),
+              _drawerTitle(context, Icons.apps, NODE),
+              Divider(height: 1,thickness: 1),
             ],
           ),
         ),
