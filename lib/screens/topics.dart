@@ -54,13 +54,13 @@ class TopicPage extends StatelessWidget {
                 height: 24,
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 child: FlatButton(
-                  child: Text(topic.node.name),
+                  child: Text(topic.node.title,style: TextStyle(fontWeight: FontWeight.bold),),
                   padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => NodeTopic(topic.node.name),
+                        builder: (context) => NodeTopic(topic.node.name,topic.node.title),
                       ),
                     );
                   },
@@ -153,8 +153,9 @@ class TopicPage extends StatelessWidget {
 
 ///节点对应主题
 class NodeTopic extends StatelessWidget {
-  NodeTopic(this.title);
+  NodeTopic(this.name,this.title);
 
+  final String name;
   final String title;
 
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
@@ -264,7 +265,7 @@ class NodeTopic extends StatelessWidget {
     });
 
     return ChangeNotifierProvider(
-      create: (context) => NodeTopicModel(title),
+      create: (context) => NodeTopicModel(name),
       child: Scaffold(
         appBar: AppBar(
           title: Text(

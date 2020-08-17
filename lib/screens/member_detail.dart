@@ -147,7 +147,7 @@ class MemberDetailPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => NodeTopic(topic.node.name),
+                        builder: (context) => NodeTopic(topic.node.name,topic.node.title),
                       ),
                     );
                   },

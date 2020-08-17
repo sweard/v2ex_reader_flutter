@@ -1,8 +1,10 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:v2ex_reader/main.dart';
 import 'package:v2ex_reader/models/home_model.dart';
 import 'package:v2ex_reader/models/topic_model.dart';
+import 'package:v2ex_reader/screens/camera.dart';
 import 'package:v2ex_reader/screens/nodes.dart';
 import 'package:v2ex_reader/screens/topics.dart';
 import 'package:v2ex_reader/utils/log_util.dart';
@@ -19,14 +21,35 @@ class HomePage extends StatelessWidget {
     Logs.d(message: "home init");
   }
 
-  _drawerHeader() {
+  Future<void> _toCameraScreen(BuildContext context) async {
+    // Ensure that plugin services are initialized so that `availableCameras()`
+    // can be called before `runApp()`
+    WidgetsFlutterBinding.ensureInitialized();
+
+    // Obtain a list of the available cameras on the device.
+    final cameras = await availableCameras();
+
+    // Get a specific camera from the list of available cameras.
+    final firstCamera = cameras.first;
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => TakePictureScreen(camera: firstCamera)));
+  }
+
+  _drawerHeader(BuildContext context) {
     return DrawerHeader(
       decoration: BoxDecoration(color: Colors.blue),
-      child: Center(
-        child: Text(
-          "V2EX",
-          style: TextStyle(fontSize: 36, color: Colors.white),
+      child: GestureDetector(
+        child: Center(
+          child: Text(
+            "V2EX",
+            style: TextStyle(fontSize: 36, color: Colors.white),
+          ),
         ),
+        onTap: () {
+          _toCameraScreen(context);
+        },
       ),
     );
   }
@@ -100,7 +123,7 @@ class HomePage extends StatelessWidget {
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
-              _drawerHeader(),
+              _drawerHeader(context),
               _drawerTitle(context, Icons.wb_sunny, HOT_TOPIC),
               Divider(height: 1, thickness: 1),
               _drawerTitle(context, Icons.access_time, LATEST_TOPIC),

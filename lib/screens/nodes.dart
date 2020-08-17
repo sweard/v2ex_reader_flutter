@@ -31,13 +31,14 @@ class NodesPage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          NodeTopic(model.getNodes()[index].name),
+                          NodeTopic(model.getNodes()[index].name,model.getNodes()[index].title),
                     ),
                   );
                 },
                 child: Text(
                   model.getNodes()[index].title,
                   textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -114,7 +115,7 @@ class NodesSearchPage extends SearchDelegate<Node> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => NodeTopic(result[index].name),
+              builder: (context) => NodeTopic(result[index].name,result[index].title),
             ),
           );
         },
@@ -153,7 +154,7 @@ class NodesSearchPage extends SearchDelegate<Node> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => NodeTopic(suggest[index].name),
+              builder: (context) => NodeTopic(suggest[index].name,suggest[index].title),
             ),
           );
         },

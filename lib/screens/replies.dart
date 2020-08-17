@@ -9,7 +9,7 @@ import '../transparent_image.dart';
 
 ///话题及回复
 class TopicContent extends StatelessWidget {
-  TopicContent(this._id, this._title, this._content);
+  const TopicContent(this._id, this._title, this._content);
 
   final int _id;
   final String _title, _content;
@@ -33,6 +33,7 @@ class TopicContent extends StatelessWidget {
 }
 
 class ReplyList extends StatelessWidget {
+
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
 
