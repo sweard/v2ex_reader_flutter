@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/widgets.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:v2ex_reader/data/node.dart';
 import 'package:v2ex_reader/data/sqlite_helper.dart';
 import 'package:v2ex_reader/main.dart';
@@ -15,6 +19,8 @@ class HomeModel with ChangeNotifier {
 
   List titles = ["最热主题", "最新主题", "节点列表"];
   String currentTitle = '最热主题';
+
+  File imageFile;
 
   //节点列表
   List<Node> _nodes = [];
@@ -35,6 +41,19 @@ class HomeModel with ChangeNotifier {
     if (_nodes.isNotEmpty) {
       notifyListeners();
     }
+  }
+
+  refreshImageFile() async {
+    // Construct the path where the image should be saved using the
+    // pattern package.
+    final imagePath = join(
+      // Store the picture in the temp directory.
+      // Find the temp directory using the `path_provider` plugin.
+      (await getTemporaryDirectory()).path,
+      'v2ex_bg.png',
+    );
+    imageFile = File(imagePath);
+    notifyListeners();
   }
 
   refreshNodes() async {

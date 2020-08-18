@@ -21,7 +21,8 @@ class HomePage extends StatelessWidget {
     Logs.d(message: "home init");
   }
 
-  Future<void> _toCameraScreen(BuildContext context) async {
+  ///跳转到拍照页面
+  Future<void> _toCameraScreen(BuildContext context, HomeModel model) async {
     // Ensure that plugin services are initialized so that `availableCameras()`
     // can be called before `runApp()`
     WidgetsFlutterBinding.ensureInitialized();
@@ -31,26 +32,45 @@ class HomePage extends StatelessWidget {
 
     // Get a specific camera from the list of available cameras.
     final firstCamera = cameras.first;
-    Navigator.push(
+    final result = await Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => TakePictureScreen(camera: firstCamera)));
+    if (result.toString() == "Saved") {
+      model.refreshImageFile();
+    }
   }
 
   _drawerHeader(BuildContext context) {
-    return DrawerHeader(
-      decoration: BoxDecoration(color: Colors.blue),
-      child: GestureDetector(
-        child: Center(
-          child: Text(
-            "V2EX",
-            style: TextStyle(fontSize: 36, color: Colors.white),
+    return Consumer<HomeModel>(
+      builder: (context, model, child) {
+        Decoration decoration;
+        if (model.imageFile == null) {
+          decoration = BoxDecoration(color: Colors.blue);
+        } else {
+          decoration = BoxDecoration(
+            color: Colors.blue,
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: FileImage(model.imageFile),
+            ),
+          );
+        }
+        return DrawerHeader(
+          decoration: decoration,
+          child: GestureDetector(
+            child: Center(
+              child: Text(
+                "V2EX",
+                style: TextStyle(fontSize: 36, color: Colors.white),
+              ),
+            ),
+            onTap: () {
+              _toCameraScreen(context, model);
+            },
           ),
-        ),
-        onTap: () {
-          _toCameraScreen(context);
-        },
-      ),
+        );
+      },
     );
   }
 
