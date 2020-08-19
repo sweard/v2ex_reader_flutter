@@ -35,9 +35,12 @@ class HomePage extends StatelessWidget {
     final result = await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => TakePictureScreen(camera: firstCamera)));
-    if (result.toString() == "Saved") {
-      model.refreshImageFile();
+            builder: (context) => TakePictureScreen(
+                  camera: firstCamera,
+                  oldFileName: model.imageFileName,
+                )));
+    if (result.toString() != null) {
+      model.refreshImageFile(result);
     }
   }
 

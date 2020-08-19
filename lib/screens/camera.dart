@@ -9,11 +9,10 @@ import 'package:path_provider/path_provider.dart';
 ///拍照界面
 class TakePictureScreen extends StatefulWidget {
   final CameraDescription camera;
+  final String oldFileName;
 
-  const TakePictureScreen({
-    Key key,
-    @required this.camera,
-  }) : super(key: key);
+  const TakePictureScreen({Key key, @required this.camera, this.oldFileName})
+      : super(key: key);
 
   @override
   TakePictureScreenState createState() => TakePictureScreenState();
@@ -77,13 +76,13 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
             // Construct the path where the image should be saved using the
             // pattern package.
+            final tempName = "v2ex_bg_${DateTime.now()}.png";
             final path = join(
               // Store the picture in the temp directory.
               // Find the temp directory using the `path_provider` plugin.
               (await getTemporaryDirectory()).path,
-              'v2ex_bg.png',
+              tempName,
             );
-
             // Attempt to take a picture and log where it's been saved.
             await _controller.takePicture(path);
 
@@ -95,7 +94,16 @@ class TakePictureScreenState extends State<TakePictureScreen> {
               ),
             );
             if (result.toString() == "Saved") {
-              Navigator.pop(context, result);
+              if (widget.oldFileName != null) {
+                final path = join(
+                  // Store the picture in the temp directory.
+                  // Find the temp directory using the `path_provider` plugin.
+                  (await getTemporaryDirectory()).path,
+                  widget.oldFileName,
+                );
+                await File(path).delete();
+              }
+              Navigator.pop(context, tempName);
             }
           } catch (e) {
             // If an error occurs, log the error to the console.
@@ -111,7 +119,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 class DisplayPictureScreen extends StatelessWidget {
   final String imagePath;
 
-  const DisplayPictureScreen({Key key, this.imagePath}) : super(key: key);
+  DisplayPictureScreen({Key key, this.imagePath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
